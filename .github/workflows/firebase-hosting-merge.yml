@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  setup_repo:
+    name: Setup the repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cp -r firebase/* .
+      - run: npm install
+      - run: 'node updateFirebaseConfig.js ${{ secrets.FIREBASE_PROJECT_ID }}'
+
+  build_web:
+    needs: setup_repo
+    name: Build Flutter (Web)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.10.4' # Replace with your project's version of Flutter.
+        channel: 'stable'
+    - run: flutter pub get
+    - run: flutter config --enable-web
+    - run: flutter build web
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: web-build
+        path: build/web
+  deploy:
+      needs: build_web
+      runs-on: ubuntu-latest  
+      steps:
+        - name: checkout
+          uses: actions/checkout@v1
+        - name: Download Artifact
+          uses: actions/download-artifact@master
+          with:
+            name: web-build
+            path: build/web
+        - name: Deploy to Firebase
+          uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: '${{ secrets.GITHUB_TOKEN }}'
+            firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MYPROJECT }}'
+            channelId: live
+            projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'
