@@ -5,7 +5,6 @@ const projectId = process.argv[2];
 const firebaseConfigPath = 'lib/backend/firebase/firebase_config.dart';
 const firebaseJsonPath = 'firebase.json';
 const firebasercPath = '.firebaserc';
-const pubspecPath = 'pubspec.yaml';
 
 // Function to fetch Firebase config from Firebase CLI
 function getFirebaseConfig(projectId) {
@@ -83,25 +82,11 @@ function updateFirebaserc() {
   }
 }
 
-// Function to update pubspec.yaml to resolve dependency conflicts
-function updatePubspec() {
-  try {
-    let pubspec = fs.readFileSync(pubspecPath, 'utf8');
-    // Replace the collection version
-    pubspec = pubspec.replace(/collection: 1\.18\.0/g, 'collection: 1.17.1');
-    fs.writeFileSync(pubspecPath, pubspec, 'utf8');
-    console.log('pubspec.yaml updated successfully.');
-  } catch (error) {
-    console.error('Error updating pubspec.yaml:', error);
-  }
-}
-
 // Main function to run the updates
 async function main() {
   await updateFirebaseConfig();
   updateFirebaseJson();
   updateFirebaserc();
-  updatePubspec();
 }
 
 main();
