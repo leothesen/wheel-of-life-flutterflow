@@ -88,4 +88,4 @@ jobs:
           cat output.txt
           echo "::set-output name=hosting_url::$(grep -o 'https://.*\.web\.app' output.txt)"
       - name: Check Hosting URL
-        run: echo "The Hosting URL is: ${{ steps.deploy.outputs.hosting_url }}"
+        run: echo "The Hosting URL is ${{ steps.deploy.outputs.hosting_url }}"
