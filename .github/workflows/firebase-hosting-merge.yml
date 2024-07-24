@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: 'QA'
-      url: ${{ steps.get_release_url.outputs.release_url }}
+      url: ${{ steps.deploy.outputs.release_url }}
     env:
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
