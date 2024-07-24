@@ -8,13 +8,15 @@ const firebasercPath = '.firebaserc';
 
 // Function to fetch Firebase config from Firebase CLI
 function getFirebaseConfig(projectId) {
-  console.log('is projectId working', projectId === 'wheel-of-life-uat');
   return new Promise((resolve, reject) => {
     exec(`firebase apps:sdkconfig WEB --project ${projectId}`, (error, stdout, stderr) => {
       if (error) {
-        reject(`exec error: ${error}`);
+        console.error(`exec error: ${error}`);
+        console.error(`stderr: ${stderr}`);
+        reject(error);
         return;
       }
+      console.log(`stdout: ${stdout}`);
       const config = JSON.parse(stdout.match(/{[^]*}/)[0]);
       resolve(config);
     });
