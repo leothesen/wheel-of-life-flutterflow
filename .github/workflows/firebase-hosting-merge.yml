@@ -20,13 +20,14 @@ jobs:
       - run: echo "FIREBASE_PROJECT_ID ${{ env.FIREBASE_PROJECT_ID }}"
       - run: node updateFirebaseConfig.js ${{ env.FIREBASE_PROJECT_ID }}
       - run: cat lib/backend/firebase/firebase_config.dart
-      - name: Upload Setup Repo Artifact
+      - name: Upload Required Files
         uses: actions/upload-artifact@v2
         with:
-          name: setup-repo
+          name: setup-files
           path: |
-            !node_modules
-            **/*
+            lib/backend/firebase/firebase_config.dart
+            firebase.json
+            .firebaserc
 
   build_web:
     needs: setup_repo
@@ -36,10 +37,10 @@ jobs:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - name: Download Setup Repo Artifact
+      - name: Download Setup Files
         uses: actions/download-artifact@v2
         with:
-          name: setup-repo
+          name: setup-files
           path: .
       - uses: subosito/flutter-action@v2
         with:
@@ -48,7 +49,7 @@ jobs:
       - run: flutter pub get
       - run: flutter config --enable-web
       - run: flutter build web
-      - name: Archive Production Artifact
+      - name: Upload Web Build
         uses: actions/upload-artifact@v2
         with:
           name: web-build
@@ -63,12 +64,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: Download Setup Repo Artifact
+      - name: Download Setup Files
         uses: actions/download-artifact@v2
         with:
-          name: setup-repo
+          name: setup-files
           path: .
-      - name: Download Web Build Artifact
+      - name: Download Web Build
         uses: actions/download-artifact@v2
         with:
           name: web-build
