@@ -19,8 +19,8 @@ jobs:
       - run: npm install -g firebase-tools # Install Firebase CLI
       - name: Authenticate Firebase
         run: |
-          echo $FIREBASE_SERVICE_ACCOUNT | base64 --decode > $HOME/firebase_key.json
-          firebase auth:login --cred $HOME/firebase_key.json
+          echo "${{ env.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > $HOME/firebase_key.json
+          firebase auth:application-default login --project ${{ env.FIREBASE_PROJECT_ID }} --key-file $HOME/firebase_key.json
       - run: echo "FIREBASE_PROJECT_ID ${{ env.FIREBASE_PROJECT_ID }}"
       - run: node updateFirebaseConfig.js ${{ env.FIREBASE_PROJECT_ID }}
       - run: cat lib/backend/firebase/firebase_config.dart
