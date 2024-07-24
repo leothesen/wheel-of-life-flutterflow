@@ -2,9 +2,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 jobs:
   setup_repo:
     name: Setup the repository
@@ -61,7 +58,7 @@ jobs:
 
   deploy:
     needs: build_web
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     env:
