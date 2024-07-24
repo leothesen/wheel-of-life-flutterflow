@@ -51,6 +51,7 @@ Future initFirebase() async {
     console.log('Firebase configuration updated successfully.');
   } catch (error) {
     console.error('Error updating Firebase configuration:', error);
+    process.exit(1); // Exit with a failure status code
   }
 }
 
@@ -66,6 +67,7 @@ function updateFirebaseJson() {
     console.log('firebase.json updated successfully.');
   } catch (error) {
     console.error('Error updating firebase.json:', error);
+    process.exit(1); // Exit with a failure status code
   }
 }
 
@@ -82,14 +84,20 @@ function updateFirebaserc() {
     console.log('.firebaserc updated successfully.');
   } catch (error) {
     console.error('Error updating .firebaserc:', error);
+    process.exit(1); // Exit with a failure status code
   }
 }
 
 // Main function to run the updates
 async function main() {
-  await updateFirebaseConfig();
-  updateFirebaseJson();
-  updateFirebaserc();
+  try {
+    await updateFirebaseConfig();
+    updateFirebaseJson();
+    updateFirebaserc();
+  } catch (error) {
+    console.error('Error in main function:', error);
+    process.exit(1); // Exit with a failure status code
+  }
 }
 
 main();
