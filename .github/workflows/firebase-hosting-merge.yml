@@ -62,6 +62,8 @@ jobs:
   deploy:
     needs: build_web
     runs-on: ubuntu-latest  
+    permissions:
+      pull-requests: write
     env:
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
