@@ -4,6 +4,7 @@ const { exec } = require('child_process');
 const projectId = process.argv[2];
 const firebaseConfigPath = 'lib/backend/firebase/firebase_config.dart';
 const firebaseJsonPath = 'firebase.json';
+const firebasercPath = '.firebaserc';
 
 // Function to fetch Firebase config from Firebase CLI
 function getFirebaseConfig(projectId) {
@@ -65,10 +66,27 @@ function updateFirebaseJson() {
   }
 }
 
+// Function to create or update the .firebaserc file
+function updateFirebaserc() {
+  try {
+    const firebasercContent = {
+      projects: {
+        default: projectId
+      }
+    };
+
+    fs.writeFileSync(firebasercPath, JSON.stringify(firebasercContent, null, 2), 'utf8');
+    console.log('.firebaserc updated successfully.');
+  } catch (error) {
+    console.error('Error updating .firebaserc:', error);
+  }
+}
+
 // Main function to run the updates
 async function main() {
   await updateFirebaseConfig();
   updateFirebaseJson();
+  updateFirebaserc();
 }
 
 main();
