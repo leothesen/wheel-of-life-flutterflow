@@ -59,8 +59,9 @@ jobs:
   deploy:
     needs: build_web
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
+    environment:
+      name: 'QA'
+      url: ${{ steps.get_release_url.outputs.release_url }}
     env:
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
@@ -86,9 +87,4 @@ jobs:
           firebase deploy --token ${{ secrets.FIREBASE_TOKEN }} --project ${{ secrets.FIREBASE_PROJECT_ID }} > output.txt
           cat output.txt
           URL=$(grep -o 'https://.*\.web\.app' output.txt)
-          echo "HOSTING_URL=$URL" >> $GITHUB_ENV
-      - name: Add PR Comment with URL
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          message: "Deployed to: ${{ env.HOSTING_URL }}"
+          echo "release_url=$URL" >> $GITHUB_OUTPUT
