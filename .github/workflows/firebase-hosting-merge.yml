@@ -28,6 +28,10 @@ jobs:
             lib/backend/firebase/firebase_config.dart
             firebase.json
             .firebaserc
+            storage.rules
+            firestore.rules
+            firestore.indexes.json
+            functions/**/*
 
   build_web:
     needs: setup_repo
