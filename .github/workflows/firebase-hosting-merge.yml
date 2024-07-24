@@ -24,7 +24,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: setup-repo
-          path: .
+          path: |
+            !node_modules
+            **/*
 
   build_web:
     needs: setup_repo
@@ -71,6 +73,7 @@ jobs:
         with:
           name: web-build
           path: build/web
+      - run: npm install
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
