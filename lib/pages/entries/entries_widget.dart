@@ -121,7 +121,6 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                 }
                                 List<ValuesRecord> textValuesRecordList =
                                     snapshot.data!;
-
                                 // Return an empty Container when the item does not exist.
                                 if (snapshot.data!.isEmpty) {
                                   return Container();
@@ -130,6 +129,7 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                     textValuesRecordList.isNotEmpty
                                         ? textValuesRecordList.first
                                         : null;
+
                                 return Text(
                                   valueOrDefault<String>(
                                     textValuesRecord?.value,
