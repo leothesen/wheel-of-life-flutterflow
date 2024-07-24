@@ -156,7 +156,7 @@ class _SignupSigninWidgetState extends State<SignupSigninWidget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 72.0),
                     child: Text(
-                      'brand.ai',
+                      'Wheel Of Life',
                       style: FlutterFlowTheme.of(context).displaySmall.override(
                             fontFamily: 'Urbanist',
                             letterSpacing: 0.0,
