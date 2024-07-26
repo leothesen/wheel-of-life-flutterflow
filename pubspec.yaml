@@ -30,6 +30,9 @@ dependencies:
   cloud_firestore: 4.17.3
   cloud_firestore_platform_interface: 6.2.3
   cloud_firestore_web: 3.12.3
+  cloud_functions: 4.7.4
+  cloud_functions_platform_interface: 5.5.26
+  cloud_functions_web: 4.9.4
   collection: 1.18.0
   firebase_auth: 4.19.5
   firebase_auth_platform_interface: 7.2.6
