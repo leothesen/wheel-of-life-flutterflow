@@ -8,6 +8,7 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/firebase_app_check_util.dart';
 import 'flutter_flow/nav/nav.dart';
 
 void main() async {
@@ -17,6 +18,8 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+
+  await initializeFirebaseAppCheck();
 
   runApp(const MyApp());
 }
