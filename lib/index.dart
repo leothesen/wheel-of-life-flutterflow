@@ -5,3 +5,5 @@ export '/pages/values/values_widget.dart' show ValuesWidget;
 export '/pages/entries/entries_widget.dart' show EntriesWidget;
 export '/pages/place_picker_test/place_picker_test_widget.dart'
     show PlacePickerTestWidget;
+export '/pages/cloud_function_test/cloud_function_test_widget.dart'
+    show CloudFunctionTestWidget;

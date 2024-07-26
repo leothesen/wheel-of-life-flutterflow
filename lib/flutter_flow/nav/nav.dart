@@ -105,6 +105,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PlacePickerTest',
           path: '/placePickerTest',
           builder: (context, params) => const PlacePickerTestWidget(),
+        ),
+        FFRoute(
+          name: 'CloudFunctionTest',
+          path: '/cloudFunctionTest',
+          builder: (context, params) => const CloudFunctionTestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
